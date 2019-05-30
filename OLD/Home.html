@@ -1,0 +1,148 @@
+<html>
+
+<!--  Navbar on the top with my profile and Logout
+
+Profile picture and Username from session variables
+Amount of grains
+Drop down menu of farms or warehouse id
+Current (Last entries) values of sensor in a column ( mapping not done yet )
+
+Line chart 3 in 1 on right side
+
+
+
+
+
+-->
+
+<head>
+<style>
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+}
+
+li {
+    float: left;
+}
+
+li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+li a:hover:not(.active) {
+    background-color: #111;
+}
+
+.active {
+    background-color: #4CAF50;
+}
+</style>
+<!--
+<?php
+ ob_start();
+ session_start();
+ 
+ include_once 'dbconnect.php';
+ 
+$sql = "SELECT * FROM users WHERE username = '$SESSION[Username]'";
+$sth = $db->query($sql);
+$result=mysqli_fetch_array($sth);
+
+
+
+
+}
+
+?>-->
+
+</head>
+<body>
+
+<ul>
+  <li><a href="MyProfile.html">My Profile</a></li>
+  <li style="float:right"><a class="active" href="Logout.php">Log Out</a></li>
+
+</ul>
+
+<!--<?php echo '<img style="float:right" src="data:image/jpeg;base64,'.base64_encode( $result['image'] ).'"/>';
+echo '$SESSION[Username]';
+
+?>-->
+<p style="float:right">
+<!--<?php
+$sql1="Select Farm_id from '$SESSION[Username]'"
+$q=mysql_query($sql1)
+echo "<select name=\"Farm_id\">"; 
+echo "<option size =30 ></option>";
+while($row1 = mysql_fetch_array($q)) 
+{        
+echo "<option value='".$row1['Farm_id']."'>".$row1['Farm_id']."</option>"; 
+}
+echo "</select>";
+$result3 = mysql_query("SELECT * FROM '$SESSION[Username]' where Farm_id= '$row1['Farm_id']'");
+while($row3 = mysql_fetch_array($result3))
+{ 
+$Temperature=$row3['Temperature'];
+$Humidity=$row3['Humidity'];
+$CO2=$row3['CO2'];
+
+?>-->
+</p>
+<p> Temperature: </p> 28 F<br>
+<p> CO2 Levels: </p> 20 %<br>
+<p> Humidity: </p> 10 ppm<br>
+<form method="POST">
+  Amount of Grains:<br>
+  <input type="text" name="Amount" placeholder="in KGs">
+  <br>
+    
+</form>
+
+<!--<?php
+$query = "INSERT INTO 'SESSION_['Username'](Amount) VALUES('$Amount') where ";
+   $res = mysqli_query($conn,$query);
+   
+   ?>-->
+<!-- Incomplete from here-->
+
+
+
+<div id="chart_div" style="width: 900px; height: 500px;"></div>
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script type="text/javascript">
+google.load("visualization", "1", {packages:["corechart"]});
+google.setOnLoadCallback(load_chart_data);
+function load_chart_data() {
+$.ajax({
+url: 'get_line_chart.php',
+type: 'POST',
+data: {get_chart: true},
+dataType: 'JSON',
+success: function(chart_values) {
+console.log(chart_values); // take a peek on the values (browser console)
+draw_chart(chart_values);
+}
+});
+}
+function draw_chart(chart_values) {
+var data = google.visualization.arrayToDataTable(chart_values);
+var options = {
+title: 'Your Area Status',
+vAxis: {title: 'Temperature', titleTextStyle: {italic: false}},
+hAxis: {title: 'Time', titleTextStyle: {italic: false}},
+};
+var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+chart.draw(data, options);
+}
+</script>
+</body>
+</html>

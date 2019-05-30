@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link href="https://fonts.googleapis.com/css?family=Bentham|Playfair+Display|Raleway:400,500|Suranna|Trocchi" rel="stylesheet">
+
+<style>
+body {
+  background-image:url"wheat.jpg";
+}
+
+.wrapper {
+  height: 420px;
+  width: 654px;
+  margin: 50px auto;
+  border-radius: 7px 7px 7px 7px;
+  /* VIA CSS MATIC http://goo.gl/cIbnS */
+  -webkit-box-shadow: 0px 14px 32px 0px rgba(0, 0, 0, 0.15);
+  -moz-box-shadow: 0px 14px 32px 0px rgba(0, 0, 0, 0.15);
+  box-shadow: 0px 14px 32px 0px rgba(0, 0, 0, 0.15);
+}
+
+.product-img {
+  float: left;
+  height: 420px;
+  width: 327px;
+  border-radius: 7px 0 0 7px;
+}
+
+.product-info {
+  float: left;
+  height: 420px;
+  width: 327px;
+  border-radius: 0 7px 7px 0;
+  background-color: #ffffff;
+}
+
+.product-text {
+  height: 300px;
+  width: 327px;
+}
+
+.product-text h1 {
+  margin: 0 0 0 38px;
+  padding-top: 52px;
+  font-size: 34px;
+  color: #474747;
+}
+
+.product-text h1,
+.product-price-btn p {
+  font-family: 'Bentham', serif;
+}
+
+.product-text h2 {
+  margin: 0 0 47px 38px;
+  font-size: 13px;
+  font-family: 'Raleway', sans-serif;
+  font-weight: 400;
+  text-transform: uppercase;
+  color: #d2d2d2;
+  letter-spacing: 0.2em;
+}
+
+.product-text p {
+  height: 125px;
+  margin: 0 0 0 38px;
+  font-family: 'Playfair Display', serif;
+  color: #8d8d8d;
+  line-height: 1.7em;
+  font-size: 15px;
+  font-weight: lighter;
+  overflow: hidden;
+}
+
+.product-price-btn {
+  height: 103px;
+  width: 327px;
+  margin-top: 17px;
+  position: relative;
+}
+
+.product-price-btn p {
+  display: inline-block;
+  position: absolute;
+  top: -13px;
+  height: 50px;
+  font-family: 'Trocchi', serif;
+  margin: 0 0 0 38px;
+  font-size: 28px;
+  font-weight: lighter;
+  color: #474747;
+}
+
+span {
+  display: inline-block;
+  height: 50px;
+  font-family: 'Suranna', serif;
+  font-size: 34px;
+}
+
+.product-price-btn button {
+  float: right;
+  display: inline-block;
+  height: 50px;
+  width: 176px;
+  margin: 0 40px 0 16px;
+  box-sizing: border-box;
+  border: transparent;
+  border-radius: 60px;
+  font-family: 'Raleway', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: #ffffff;
+  background-color: #9cebd5;
+  cursor: pointer;
+  outline: none;
+}
+
+.product-price-btn button:hover {
+  background-color: #79b0a1;
+}
+<script> var a = parseInt("<?php echo $count ?>") </script>
+</style>
+<body>
+<script>
+
+<div class="wrapper">
+    <div class="product-img">
+<?php
+    
+    $dbHost     = 'localhost';
+    $dbUsername = 'id3962872_admin';
+    $dbPassword = 'jiten3446472';
+    $dbName     = 'id3962872_users';
+    
+
+    $db = new mysqli($dbHost, $dbUsername, $dbPassword, $dbName);
+    
+    if($db->connect_error){
+       die("Connection failed: " . $db->connect_error);
+    }
+  $Username = trim($_POST['Username']);
+  $Username = strip_tags($Username);
+  $Username = htmlspecialchars($Username);
+  
+  $Email = trim($_POST['Email']);
+  $Email = strip_tags($Email);
+  $Email = htmlspecialchars($Email);
+  
+  $Password = trim($_POST['Password']);
+  $Password = strip_tags($Password);
+  $Password = htmlspecialchars($Password);
+
+  $Area = trim($_POST['Area']);
+  $Area = strip_tags($Area);
+  $Area = htmlspecialchars($Area);
+
+  $Phone = trim($_POST['Phone']);
+  $Phone = strip_tags($Phone);
+  $Phone = htmlspecialchars($Phone);
+
+  $City = trim($_POST['City']);
+  $City = strip_tags($City);
+  $City = htmlspecialchars($City);
+
+  $State = trim($_POST['State']);
+  $State = strip_tags($State);
+  $State = htmlspecialchars($State);
+
+  $Name = trim($_POST['Name']);
+  $Name = strip_tags($Name);
+  $Name = htmlspecialchars($Name);
+
+  $Occupation = trim($_POST['Occupation']);
+  $Occupation = strip_tags($Occupation);
+  $Occupation = htmlspecialchars($Occupation);
+
+  $Income = trim($_POST['Income']);
+  $Income = strip_tags($Income);
+  $Income = htmlspecialchars($Income);
+
+$result = $db->query("SELECT image FROM images WHERE id = {$_GET['id']}");
+    
+    if($result->num_rows > 0){
+        $imgData = $result->fetch_assoc();
+        
+        //Render image
+        header("Content-type: image/jpg"); 
+        echo $imgData['image']; 
+    }else{
+        echo 'Image not found...';
+    }
+
+$result3 = mysql_query("SELECT * FROM user");
+while($row3 = mysql_fetch_array($result3))
+{ 
+$Name=$row3['Name'];
+$Username=$row3['Username'];
+$Area=$row3['Area'];
+$Phone=$row3['Phone'];
+$image=$row3['image'];
+$Password=$row3['Password'];
+$Occupation=$row3['Occupation'];
+$State=$row3['State'];
+$Income=$row3['Income'];
+$City=$row3['City'];
+$Email=$row3['Email'];
+
+    </div>
+    <div class="product-info">
+      <div class="product-text">
+        <h1>$_SESSION['Username'] </h1>
+        <h2><?php
+echo "$Occupation";?>
+</h2>
+        <p>Amount Of grains: $Amount <br> </p>
+      </div>
+      <div class="product-price-btn">
+        <a href:"/My profile.html" <button type="button">See All Details</button> </a>
+      </div>
+    </div>
+  </div>
+  
+  
+  $result2 = mysql_query("SELECT count(*) FROM user");
+$result1 = mysql_query($result2) or die(mysql_error());
+
+$row1 = mysql_fetch_array($result1)
+    //Get image data from database
+    $result = $db->query("SELECT image FROM Users WHERE Username = '$_SESSION["Username']");
+    
+    if($result->num_rows > 0){
+        $imgData = $result->fetch_assoc();
+        
+        //Render image
+        header("Content-type: image/jpg"); 
+        echo $imgData['image']; 
+    }else{
+        echo 'Image not found...';
+    }
+
+}
+
+
+
+?>
+
+  
+  
+</body>
+</html>
